@@ -10,12 +10,19 @@ abstract class Model {
     private static $dbHandle = NULL;
     protected $table = NULl;
     protected $pk = NULl;
-
+    private  static $conn;
     private static final function getConnection() {
+		
         if (is_null(self::$connection)) {
-            self::$connection = mysql_connect(self::$host, self::$user, self::$pass) or die('Nao foi possivel conectar');
-            self::$dbHandle = mysql_select_db(self::$dbname, self::$connection) or die('Nao foi possivel selecionar o banco');
+            self::$conn = new PDO(
+                      "mysql:host=".self::$host.";dbname=".self::$dbname, self::$user, self::$pass,
+                      array(
+                             PDO::ATTR_PERSISTENT => true
+                           )
+                    );
         }
+		
+	
     }
 
     public final function __construct() {
@@ -27,7 +34,14 @@ abstract class Model {
     }
 
     public final function query($sql) {
-        return mysql_query($sql, self::$connection);
+	
+		$stmt=self::$conn->prepare($sql);
+        $stmt->execute();
+		//while($rows=$stmt->fetch(PDO::FETCH_COLUMN)){
+			
+            			
+		//}
+		return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     public function delete($id) {

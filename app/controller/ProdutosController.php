@@ -10,6 +10,7 @@ class ProdutosController extends Controller {
 
     public function remover($id = null) {
         $this->view = null;
+		printrx('dfvfbfb');
     }
 
 }
