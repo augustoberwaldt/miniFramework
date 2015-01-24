@@ -15,11 +15,11 @@ abstract class Model {
 		
         if (is_null(self::$connection)) {
             self::$conn = new PDO(
-                      "mysql:host=".self::$host.";dbname=".self::$dbname, self::$user, self::$pass,
-                      array(
-                             PDO::ATTR_PERSISTENT => true
-                           )
-                    );
+							  "mysql:host=".self::$host.";dbname=".self::$dbname, self::$user, self::$pass,
+							   array(
+									 PDO::ATTR_PERSISTENT => true
+								   )
+							);
         }
 		
 	
