@@ -11,21 +11,24 @@ abstract class Model {
     protected $table = NULl;
     protected $pk = NULl;
     private  static $conn;
+
     private static final function getConnection() {
 		
-        if (is_null(self::$connection)) {
+        if (is_null(self::$connection)) 
             self::$conn = new PDO(
-							  "mysql:host=".self::$host.";dbname=".self::$dbname, self::$user, self::$pass,
-							   array(
-									 PDO::ATTR_PERSISTENT => true
-								   )
-							);
-        }
-		
+								"mysql:host=".self::$host.";dbname=".self::$dbname, self::$user, self::$pass,
+								array(PDO::ATTR_PERSISTENT => true)
+							  );
 	
     }
 
     public final function __construct() {
+		$dados=include 'config/database.php'; 
+		
+		self::$host=$dados['host'];
+		self::$dbname=$dados['schema'];
+		self::$user=$dados['user'];
+		self::$pass=$dados['pass'];
         self::getConnection();
         if (is_null($this->table))
             die("Tabela nao setada");
@@ -37,10 +40,6 @@ abstract class Model {
 	
 		$stmt=self::$conn->prepare($sql);
         $stmt->execute();
-		//while($rows=$stmt->fetch(PDO::FETCH_COLUMN)){
-			
-            			
-		//}
 		return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
@@ -48,37 +47,6 @@ abstract class Model {
         $sql = "DELETE FROM " . $this->table . " WHERE " . $this->pk . "='" . $id . "'";
         return $this->query($sql);
     }
-	/*
-	public final function find($array=array()){
-	  $sql='select ';
-	  
-	   if(in_array('campos',$array){
-	     if(is_array($array['campos'])){
-		    $sql+=implode(',',$array['campos']);
-		 }else{
-		     if(!empty($array['campos']))
-				$sql+=$array['campos'];
-			 else 
-			    $sql+='*';	
-		 }
-	   }              
-	   if(in_array('filtro',$array){
-	   
-	       if(is_array($array['filtro'])){
-		       foreach($array['filtro'] as $key=> $value ){
-			      
-			   }
-		   }else{
-		                
-		        $sql+=
-		   }
-	   }  
-      if(in_array('join',$array)   	   
-	     
-	}
-	
-	
-	*/
 	
 	
 	

@@ -31,13 +31,14 @@ class Dispatcher {
 		   $object->$model_class=new $model_class;
 		}
 	
-		 if(!method_exists($object,$action)){
+		if(!method_exists($object,$action)){
 			 die('Controller  não encontrou action'); 
 			 
 		 }
-		 
-		if(!empty($params))
-		    call_user_func_array(array($object,$action),$params);
+		 $data=array_merge($_GET,$_POST);
+	     $object->data=$data;
+		if(!empty($data))
+		    call_user_func_array(array($object,$action),array('get'=>$_GET));
 		
 		call_user_func(array($object,$action));
 		
