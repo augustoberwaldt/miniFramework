@@ -4,7 +4,7 @@ php:
   - 5.6
   - 7.0
 
-script: find {src,tests} -name "*.php" ! -path '*/NonPHP7.php' -print0 | xargs -0 -n1 -P8 php -l
+script: find {app,lib} -name "*.php" ! -path '*/NonPHP7.php' -print0 | xargs -0 -n1 -P8 php -l
 
 after script:
 notification:
