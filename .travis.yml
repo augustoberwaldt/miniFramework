@@ -8,7 +8,7 @@ php:
   - 7.0
 
 script:
-  - php.test test.php
+  - php -l index.php
 
 after script:
 notification:
