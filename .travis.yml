@@ -1,14 +1,10 @@
 language:php
 
 php:
-  - 5.3
-  - 5.4
-  - 5.5
   - 5.6
   - 7.0
 
-script:
-  - php -l index.php
+script: find {app,lib} -name "*.php" ! -path '*/NonPHP7.php' -print0 | xargs -0 -n1 -P8 php -l
 
 after script:
 notification:
