@@ -19,11 +19,9 @@ function printr($array=array())
 	  echo '</pre>'; 
 	
 }
-function printrx()
+function printrx($array=array())
  {
-	  $args = func_get_args();
-	  foreach($args as $value){
-		  printr($value);
-	  }
+	
+	  printr($array);
 	  exit;
 }
