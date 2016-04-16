@@ -20,14 +20,5 @@ class Load {
 	   return new $class; 	
  	    
 	}
-	/*
-	public function __autoload($classname) {
-		
-		if(!file_exists($classname))
-		 return false;
- 
-		include_once($classname);
-		return true;
-				
-   }*/
+	
 }

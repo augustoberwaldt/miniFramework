@@ -4,6 +4,7 @@ define('ROOT',str_replace("/",DS,dirname($_SERVER['SCRIPT_FILENAME'])));
 define('LIB',ROOT.DS.'lib');
 
 define('APP',ROOT.DS.'app');
+define('VENDOR',ROOT.DS.'vendor');
 
 define('MODEL', APP.DS.'model');
 define('CONTROLLER', APP.DS.'controller');
@@ -15,6 +16,7 @@ define('CSS',WEB.DS.'css');
 define('JS', WEB.DS.'js');
 define('IMG',WEB.DS.'img');
 
+require_once VENDOR.DS .'autoloader.php';
 require_once LIB.DS.'Dispatcher.php';
 require_once LIB.DS.'Load.php';
 require_once LIB.DS.'Controller.php';

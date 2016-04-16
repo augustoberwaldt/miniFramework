@@ -37,11 +37,10 @@ class Dispatcher {
 		 }
 		 $data=array_merge($_GET,$_POST);
 	     $object->data=$data;
-		if(!empty($data))
-		    call_user_func_array(array($object,$action),array('get'=>$_GET));
+	
+		 call_user_func_array(array($object,$action),array('get'=>$_GET));
 		
-		call_user_func(array($object,$action));
-		
+	
 		// Render
 		if($object->useView())
 			$object->render();
