@@ -1,12 +1,10 @@
 <?php
-require_once 'lib' . DIRECTORY_SEPARATOR . 'bootstrap.php';
-
-$ds = new Dispatcher();
-$ds->dispatch();
-
-
-//gbfgbfgbfgb
-
-//
-
-//csdc zxczxczx
+class App_Model extends Model
+{
+	 
+	 
+	 
+	 
+	 
+	 
+}

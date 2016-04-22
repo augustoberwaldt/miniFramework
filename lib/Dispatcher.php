@@ -2,10 +2,14 @@
 
 		
 class Dispatcher {
+	
+	private $actionDefault = 'index'; 
+	
 	public function dispatch() {
 		
-		if(!isset($_GET['request']))
-		  $_GET['request']='index';
+		
+		if(!isset($_GET['request'])) 
+		  $_GET['request']= $this->actionDefault;
 		
 		$path = $_GET['request']; 		
 		$exploded = explode('/',$path);
@@ -21,32 +25,42 @@ class Dispatcher {
 		
 		$file = CONTROLLER.DS.$controller_class . '.php';
 		$model= MODEL.DS.$model_class.'.php';
-		if(!file_exists($file))
-			die('Crie o arquivo ' . $file);
-		
+		if (!file_exists($file)) {
+			$this->pageNotFound();
+		}
+			
 		require_once  $file;
 		$object = new $controller_class();
 	    if(file_exists($model)){ 
      	   require_once $model;
-		   $object->$model_class=new $model_class;
+		   $object->$model_class = new $model_class;
 		}
 	
-		if(!method_exists($object,$action)){
-			 die('Controller  não encontrou action'); 
-			 
-		 }
-		 $data=array_merge($_GET,$_POST);
-	     $object->data=$data;
+		if (!method_exists($object,$action)){
+			$this->pageNotFound();
+		}
+		$data = array_merge($_GET, $_POST);
+	    $object->data = $data;
 	
-		 call_user_func_array(array($object,$action),array('get'=>$_GET));
+	    call_user_func_array([$object, $action], ['get'=> $_GET , 'post' => $_POST]);
+			
 		
-	
-		// Render
-		if($object->useView())
-			$object->render();
+		
+		if ($object->useView()) {	
+			$object->render();	
+		}
 		
 		unset($object);
 	}
+	
+	private function pageNotFound() 
+	{
+		header("HTTP/1.0 404 Not Found");
+		Load::loadView('404');
+		exit();
+	}
+	
+	
 	
 	
 	

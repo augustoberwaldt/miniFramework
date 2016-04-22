@@ -4,6 +4,11 @@ abstract class Controller  {
 	private $viewVars = array();
 	private $action;
 	
+	public function __construct() 
+	{
+		ClassRegistry::set('controller', $this);
+	}
+	
 	public final function render() {
 		
 		$file_view = VIEW.DS.$this->view.'.php';

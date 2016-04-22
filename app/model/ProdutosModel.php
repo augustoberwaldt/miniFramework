@@ -1,6 +1,6 @@
 <?php
 
-class ProdutosModel extends Model {
+class ProdutosModel extends App_Model {
 
     protected $table = 'produtos';
     protected $pk = 'id';
